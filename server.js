@@ -1,5 +1,4 @@
 const express = require('express');
-const uniqid = require('uniqid');
 const fs = require('fs');
 const path = require('path');
 
@@ -15,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/room', (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
+    res.sendFile(path.join(__dirname, "/public/room.html"));
 })
 
 app.get('/api/notes', (req, res) => {

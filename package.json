@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dhens/Salty-Messenger/issues"
   },
-  "homepage": "https://github.com/dhens/Salty-Messenger#readme"
+  "homepage": "https://github.com/dhens/Salty-Messenger#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
