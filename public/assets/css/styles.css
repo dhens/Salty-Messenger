@@ -15,6 +15,12 @@ html, body {
   cursor: pointer;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .note-textarea, .note-title {
   color: #000000;
   width: 100%;
