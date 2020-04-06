@@ -1,0 +1,19 @@
+{
+  "name": "salty-messenger",
+  "version": "1.0.0",
+  "description": "An online chatting service with a salty surprise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhens/Salty-Messenger.git"
+  },
+  "author": "dhens, chickenwaffle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dhens/Salty-Messenger/issues"
+  },
+  "homepage": "https://github.com/dhens/Salty-Messenger#readme"
+}
