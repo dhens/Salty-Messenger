@@ -17,6 +17,9 @@ app.get('/room', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/room.html"));
 })
 
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/test.html"));
+});
 
 app.listen(PORT, () => {
     console.log(`🧂 Server started on port ${PORT}`);
