@@ -7,10 +7,6 @@ const port = process.env.PORT || 3000;
 app.use(express.static('public'))
 app.disable('x-powered-by'); // Prevents server from identifying itself for potential attackers
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
-
 io.on('connection', function(socket) {
 
     socket.on('user_join', function(data) {
@@ -28,6 +24,8 @@ io.on('connection', function(socket) {
     });
 });
 
-http.listen(port, function() {
+require('./routes/routes')(app);
+
+app.listen(port, function() {
     console.log('Listening on *:' + port);
 });
