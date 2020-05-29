@@ -1,26 +1,33 @@
+const app = require('express')();
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = process.env.PORT || 3000;
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.static('public'))
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname + '/public/'));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/room', (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/room.html"));
-})
+io.on('connection', function(socket) {
 
-app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/test.html"));
+    socket.on('user_join', function(data) {
+        this.username = data;
+        socket.broadcast.emit('user_join', data);
+    });
+
+    socket.on('chat_message', function(data) {
+        data.username = this.username;
+        socket.broadcast.emit('chat_message', data);
+    });
+
+    socket.on('disconnect', function(data) {
+        socket.broadcast.emit('user_leave', this.username);
+    });
 });
 
-app.listen(PORT, () => {
-    console.log(`🧂 Server started on port ${PORT}`);
+http.listen(port, function() {
+    console.log('Listening on *:' + port);
 });
