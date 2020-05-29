@@ -4,37 +4,49 @@ const messages = document.querySelector(".messages");
 const username = prompt("Please enter a nickname: ", "");
 const socket = io();
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault();
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-    addMessage(username + ": " + input.value);
-
-    socket.emit("chat_message", {
-        message: input.value
-    });
-
-    input.value = "";
+  // Keep user from submitting blank message
+  if (!input.value) {
     return false;
+  }
+
+  addMessage(username + ": " + input.value);
+
+  socket.emit("chat_message", {
+    message: input.value
+  });
+
+  input.value = "";
+  return false;
 }, false);
 
-socket.on("chat_message", function(data) {
-    addMessage(data.username + ": " + data.message);
+socket.on("chat_message", function (data) {
+  addMessage(data.username + ": " + data.message);
 });
 
-socket.on("user_join", function(data) {
-    addMessage(data + " just joined the chat!");
+socket.on("user_join", function (data) {
+  addMessage(data + " just joined the chat!");
 });
 
-socket.on("user_leave", function(data) {
-    addMessage(data + " has left the chat.");
+socket.on("user_leave", function (data) {
+  addMessage(data + " has left the chat.");
 });
 
-addMessage("You have joined the chat as '" + username  + "'.");
+addMessage("You have joined the chat as '" + username + "'.");
 socket.emit("user_join", username);
 
 function addMessage(message) {
-    const li = document.createElement("li");
-    li.innerHTML = message;
-    messages.appendChild(li);
-    window.scrollTo(0, document.body.scrollHeight);
+  const li = document.createElement("li");
+  li.innerHTML = message;
+  messages.appendChild(li);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+const verifyMessage = message => {
+  if (!message)
+    return true
+  else
+    addMessage(message)
 }
