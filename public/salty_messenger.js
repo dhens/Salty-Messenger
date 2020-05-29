@@ -9,27 +9,27 @@ Known Bugs:
 */
 
 // Load JSON containing salted pairs aa-zz
-const valuesByKey = require('./db/key_value_pairs.json');
+const valuesByKey = keyValuePairs;
 
 const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-var salty_alphabet = ""
+let salty_alphabet = ""
 
 // FUNCTIONS
-function salty_encode(input) {
-    var input_contains_letters = false;
-    var salty_output = "";
+const salty_encode = input => {
+    let input_contains_letters = false;
+    let salty_output = "";
 
     input = input.toLowerCase();
 
-    var pair_x = ALPHABET.charAt(Math.floor(Math.random() * 26));
-    var pair_y = ALPHABET.charAt(Math.floor(Math.random() * 26));
-    var salty_pair = pair_x + pair_y;
+    let pair_x = ALPHABET.charAt(Math.floor(Math.random() * 26));
+    let pair_y = ALPHABET.charAt(Math.floor(Math.random() * 26));
+    let salty_pair = pair_x + pair_y;
     salty_alphabet = valuesByKey[salty_pair];
 
-    for (var character = 0; character < input.length; character++) {
-        var letter_found = false;
+    for (let character = 0; character < input.length; character++) {
+        let letter_found = false;
 
-        for (var i = 0; i < 26; i++) {
+        for (let i = 0; i < 26; i++) {
             if (input.charAt(character) == ALPHABET.charAt(i)) {
                 letter_found = true;
                 input_contains_letters = true;
@@ -51,16 +51,16 @@ function salty_encode(input) {
     }
 }
 
-function salty_decode(input) {
-    var salty_output = "";
+const salty_decode = input => {
+    let salty_output = "";
 
-    var salty_pair = input.substring(0, 2);
+    const salty_pair = input.substring(0, 2);
     salty_alphabet = valuesByKey[salty_pair];
 
-    for (var character = 0; character < input.length; character++) {
-        var letter_found = false;
+    for (let character = 0; character < input.length; character++) {
+        let letter_found = false;
 
-        for (var i = 0; i < 26; i++) {
+        for (let i = 0; i < 26; i++) {
             if (input.charAt(character) == salty_alphabet.charAt(i)) {
                 letter_found = true;
                 input_contains_letters = true;
@@ -87,5 +87,3 @@ function salty_decode(input) {
 // const decoded = salty_decode(encoded);
 // console.log("Decoded:\t", decoded);
 // console.log("\n");
-
-module.exports = { valuesByKey, salty_alphabet, ALPHABET, salty_encode, salty_decode };

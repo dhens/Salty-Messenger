@@ -1,4 +1,4 @@
-{
+const keyValuePairs = {
 	"aa": "qjrnogexilcfkypzsvbtadhwum",
 	"ab": "zkhvfqxiagrclwypsedntjmoub",
 	"ac": "bmpjshdekxcoynqtuaglvzwfri",

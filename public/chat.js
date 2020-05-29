@@ -17,7 +17,7 @@ form.addEventListener("submit", function (event) {
     return false;
   }
 
-  const encodedMessage = sendPlainMessage(input.value);
+  const encodedMessage = salty_encode(input.value);
 
   addMessage(username + ": " + encodedMessage);
 
@@ -49,21 +49,4 @@ function addMessage(message) {
   li.innerHTML = message;
   messages.appendChild(li);
   window.scrollTo(0, document.body.scrollHeight);
-}
-
-const sendPlainMessage = message => {
-  const url = '/messageReceiving';
-  const data = { message };
-
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-
-  fetch(url, options) 
-  .then(response => response.json())
-  .then(res => console.log(`response: ${res}`));
 }
