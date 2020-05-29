@@ -4,8 +4,13 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
+// Required to be imported to parse JSON data from API
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Prevents server from identifying itself for potential attackers
 app.use(express.static('public'))
-app.disable('x-powered-by'); // Prevents server from identifying itself for potential attackers
+app.disable('x-powered-by'); 
 
 io.on('connection', function(socket) {
 

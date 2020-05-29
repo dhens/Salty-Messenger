@@ -1,10 +1,8 @@
-debugger;
 const form = document.querySelector("form");
 const input = document.querySelector(".input");
 const messages = document.querySelector(".messages");
 const username = prompt("Please enter a nickname: ", "");
 const socket = io();
-
 
 form.addEventListener("submit", function (event) {
   // Prevent default reload behavior that occurs when a form is submitted.
@@ -19,12 +17,12 @@ form.addEventListener("submit", function (event) {
     return false;
   }
 
-  sendPlainMessage(input.value);
-  
-  addMessage(username + ": " + input.value);
+  const encodedMessage = sendPlainMessage(input.value);
+
+  addMessage(username + ": " + encodedMessage);
 
   socket.emit("chat_message", {
-    message: input.value
+    message: encodedMessage
   });
 
   input.value = "";
@@ -54,19 +52,18 @@ function addMessage(message) {
 }
 
 const sendPlainMessage = message => {
-  const data = { message: message }
-  fetch('/messageReceiving', {
+  const url = '/messageReceiving';
+  const data = { message };
+
+  const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data),
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Success:', data)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  })
+    body: JSON.stringify(data)
+  }
+
+  fetch(url, options) 
+  .then(response => response.json())
+  .then(res => console.log(`response: ${res}`));
 }
